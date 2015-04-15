@@ -1355,9 +1355,12 @@ int32_t SoftFFmpegAudio::resampleAudio() {
         (mFrame->channel_layout && av_frame_get_channels(mFrame) == channels) ?
         mFrame->channel_layout : av_get_default_channel_layout(av_frame_get_channels(mFrame));
 
+#ifndef MTK_HARDWARE
     if (mOutputReconfigured || mFrame->format != mAudioSrcFmt
             || channelLayout != mAudioSrcChannelLayout
-            || mFrame->sample_rate != mAudioSrcFreq) {
+            || mFrame->sample_rate != mAudioSrcFreq)
+#endif
+    {
         if (mSwrCtx) {
             swr_free(&mSwrCtx);
         }
