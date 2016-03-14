@@ -147,7 +147,7 @@ void SoftFFmpegVideo::deInitDecoder() {
         }
     }
     if (mFrame) {
-        av_freep(&mFrame);
+        av_frame_free(&mFrame);
         mFrame = NULL;
     }
     if (mImgConvertCtx) {
